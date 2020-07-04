@@ -1,1 +1,33 @@
+------------------------------------------------------------------------------------------------------------------------ 
+# save the model to disk
+filename = 'finalized_model.sav'
+pickle.dump(model, open(filename, 'wb'))
+
+# load the model from disk
+loaded_model = pickle.load(open(filename, 'rb'))
+result = loaded_model.score(X_test, Y_test)
+------------------------------------------------------------------------------------------------------------------------ 
+import pandas as pd
+df.to_pickle('123.pkl')    #to save the dataframe, df to 123.pkl
+df1 = pd.read_pickle('123.pkl') #to load 123.pkl back to the dataframe df
+
+------------------------------------------------------------------------------------------------------------------------ 
+#Extracting Zip file
+import zipfile
+path_to_zip_file='/content/Facebook-20200618T044353Z-001.zip'
+directory_to_extract_to='/content/facebook'
+with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
+    zip_ref.extractall(directory_to_extract_to)
+------------------------------------------------------------------------------------------------------------------------ 
+# move folder iteam in other folder
+import shutil
+import os 
+shutil.move('/content/facebook/Facebook','/content/drive/My Drive/Assignment') #move
+#remove folder
+shutil.rmtree('/content/drive/My Drive/Assignment/facebook') #remove 
+
+
+
 !7z e GoogleNews-vectors-negative300.bin.gz for extract gzip file
+
+

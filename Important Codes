@@ -25,9 +25,109 @@ import os
 shutil.move('/content/facebook/Facebook','/content/drive/My Drive/Assignment') #move
 #remove folder
 shutil.rmtree('/content/drive/My Drive/Assignment/facebook') #remove 
-
-
-
+------------------------------------------------------------------------------------------------------------------------ 
 !7z e GoogleNews-vectors-negative300.bin.gz for extract gzip file
+------------------------------------------------------------------------------------------------------------------------ 
+#feature Importance
+from sklearn.ensemble import ExtraTreesRegressor
+model=ExtraTreesRegressor()
+model.fit(X,y)
+model.feature_importances_
+
+feat_importances = pd.Series(model.feature_importances_, index=X.columns)
+feat_importances.nlargest(20).plot(kind='barh')
+plt.show()
+---------------------------------
+#getting top 1000 feature index
+imp_feature_index =np.argsort(r_cfl.feature_importances_)[::-1]
+top_1000_bigram_feature =byte_vector_normalize[:,imp_feature_index[0:1000]]
 
 
+------------------------------------------------------------------------------------------------------------------------ 
+X_train, X_test, y_train, y_test = train_test_split(top_1000_bigram_feature, data_y,stratify=data_y,test_size=0.20)
+# split the train data into train and cross validation by maintaining same distribution of output varaible 'y_train' [stratify=y_train]
+X_train, X_cv, y_train, y_cv = train_test_split(X_train, y_train,stratify=y_train,test_size=0.20)
+------------------------------------------------------------------------------------------------------------------------ 
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2)
+------------------------------------------------------------------------------------------------------------------------ 
+from prettytable import PrettyTable
+ptable = PrettyTable()
+ptable.title = " Model Comparision "
+ptable.field_names = ["Model",'Features','train log loss','Test log loss']
+ptable.add_row(["random","Byte files","2.49","2.49"])
+------------------------------------------------------------------------------------------------------------------------ 
+# https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/
+x_cfl=XGBClassifier()
+
+prams={
+    'learning_rate':[0.01,0.03,0.05,0.1,0.15,0.2],
+     'n_estimators':[100,200,500,1000,2000],
+     'max_depth':[3,5,10],
+    'colsample_bytree':[0.1,0.3,0.5,1],
+    'subsample':[0.1,0.3,0.5,1]
+}
+random_cfl1=RandomizedSearchCV(x_cfl,param_distributions=prams,verbose=10,n_jobs=-1,) 
+#rf_random =RandomizedSearchCV(rf,param_distributions=params,random_state=42,verbose=10,cv=5,scoring='mean_squared_error',n_iter = 10,return_train_score=True,n_jobs=-1)
+random_cfl1.fit(X_train,y_train)
+random_cfl1.best_params_
+
+#After Random search Final Model
+x_cfl=XGBClassifier(n_estimators=2000, learning_rate=0.05, colsample_bytree= 1, max_depth=10,subsample=0.3,n_jobs=-1,)
+x_cfl.fit(X_train,y_train)
+c_cfl=CalibratedClassifierCV(x_cfl,method='sigmoid')
+c_cfl.fit(X_train,y_train)
+
+------------------------------------------------------------------------------------------------------------------------ 
+#Random Search CV
+results=pd.DataFrame(rf_random.cv_results_)
+results.head()
+
+import seaborn as sns;
+sns.set()
+data = results.pivot('param_min_samples_split', 'param_max_depth', "mean_train_score")
+ax = sns.heatmap(data, annot=True).set(title="Min Sample split ,Max depth AUC Score", xlabel='Max Depth',ylabel='Min Sample Split')
+
+
+------------------------------------------------------------------------------------------------------------------------ 
+
+results = results.sort_values(['param_max_depth'])
+train_auc= results['mean_train_score']
+train_auc_std= results['std_train_score']
+cv_auc = results['mean_test_score']
+cv_auc_std= results['std_test_score']
+max_depth = results['param_max_depth']
+plt.plot(max_depth,train_auc,label='Train MSE')
+plt.plot(max_depth,cv_auc,label='CV MSE')
+plt.scatter(max_depth,train_auc,label='Train MSE Points')
+plt.scatter(max_depth,cv_auc,label="CV MSE Points")
+plt.legend()
+plt.xlabel("max_depth: Hyperparameter")
+plt.ylabel("Neg MSE")
+plt.title("Error PLots")
+plt.grid()
+plt.show()
+
+------------------------------------------------------------------------------------------------------------------------ 
+#hstack Example
+a = np.array([[1],[2],[3]])
+b = np.array([[2],[3],[4]])
+np.hstack((a,b))
+array([[1, 2],
+       [2, 3],
+       [3, 4]])
+---------------
+#vstack Example
+a = np.array([[1], [2], [3]])
+b = np.array([[2], [3], [4]])
+np.vstack((a,b))
+array([[1],
+       [2],
+       [3],
+       [2],
+       [3],
+       [4]])
+------------------------------------------------------------------------------------------------------------------------ 
+#https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iloc.html
+X= final_dataset.iloc[:,1:] ## selection except then 0 column others like 0,1,2,3,4 columns are there it will select 1,2,3,4 column
+y=final_dataset.iloc[:,0] ## it will select 0th column others like 0,1,2,3,4 columns are there it will select only 0 colum

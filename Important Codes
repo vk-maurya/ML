@@ -19,8 +19,10 @@ directory_to_extract_to='/content/facebook'
 with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
     zip_ref.extractall(directory_to_extract_to)
 ------------------------------------------------------------------------------------------------------------------------ 
-##unRar File
-get_ipython().system_raw("unrar x /content/rvl-cdip.rar")
+## ALl type of Zip
+!pip install patool
+import patoolib
+patoolib.extract_archive("/content/rvl-cdip.rar", outdir="/content/")
 ------------------------------------------------------------------------------------------------------------------------ 
 # move folder iteam in other folder
 import shutil

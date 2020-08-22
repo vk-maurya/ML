@@ -136,3 +136,8 @@ array([[1],
 #https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iloc.html
 X= final_dataset.iloc[:,1:] ## selection except then 0 column others like 0,1,2,3,4 columns are there it will select 1,2,3,4 column
 y=final_dataset.iloc[:,0] ## it will select 0th column others like 0,1,2,3,4 columns are there it will select only 0 colum
+------------------------------------------------------------------------------------------------------------------------ 
+Enable Jupyter notebook Extention 
+pip install jupyter_contrib_nbextensions
+jupyter contrib nbextension install --user
+jupyter nbextension enable spellchecker/main #spelling checking

@@ -1,4 +1,9 @@
 ------------------------------------------------------------------------------------------------------------------------ 
+Virtal environment
+py -m venv project_name #create
+project_name\Scripts\activate.bat  #active
+
+------------------------------------------------------------------------------------------------------------------------ 
 # save the model to disk
 filename = 'finalized_model.sav'
 pickle.dump(model, open(filename, 'wb'))

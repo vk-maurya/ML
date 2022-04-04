@@ -11,7 +11,10 @@ os.makedirs("/root/.kaggle",mode=600,exist_ok=True)
 Virtal environment
 py -m venv project_name #create
 project_name\Scripts\activate.bat  #active
-
+------------------------------------------------------------------------------------------------------------------------ 
+setting option for column width maximum
+pd.set_option('display.max_colwidth', -1)
+df.head()
 ------------------------------------------------------------------------------------------------------------------------ 
 #disable log in Transformer
 from transformers import logging
@@ -43,6 +46,7 @@ with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
 import patoolib
 patoolib.extract_archive("/content/rvl-cdip.rar", outdir="/content/")
 ------------------------------------------------------------------------------------------------------------------------ 
+
 # move folder iteam in other folder
 import shutil
 import os 

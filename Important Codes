@@ -11,7 +11,11 @@ os.makedirs("/root/.kaggle",mode=600,exist_ok=True)
 Virtal environment
 py -m venv project_name #create
 project_name\Scripts\activate.bat  #active
------------------------------------------------------------------------------------------------------------------------- 
+------------------------------------------------------------------------------------------------------------------------
+Getting requirement.txt from current environment
+pip freeze > requirement.txt 
+# it will Generate requirement.txt file which are currrently install in current venv
+------------------------------------------------------------------------------------------------------------------------
 setting option for column width maximum
 pd.set_option('display.max_colwidth', -1)
 df.head()

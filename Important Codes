@@ -12,6 +12,10 @@ Virtal environment
 py -m venv project_name #create
 project_name\Scripts\activate.bat  #active
 ------------------------------------------------------------------------------------------------------------------------
+in Seaborn plots x and y lables are comming outside of image for that we can use below code
+import seaborn as sns
+sns.set(style = 'whitegrid') 
+------------------------------------------------------------------------------------------------------------------------
 Getting requirement.txt from current environment
 pip freeze > requirement.txt 
 # it will Generate requirement.txt file which are currrently install in current venv

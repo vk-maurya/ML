@@ -1,3 +1,28 @@
+------------------------------------------------------------------------------------------------------------------------ 
+#install cuda using conda
+conda install -c conda-forge cudatoolkit=11.2.2 cudnn=8.0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+------------------------------------------------------------------------------------------------------------------------ 
+#Get execution time on every cell
+!pip install ipython-autotime
+%load_ext autotime
+------------------------------------------------------------------------------------------------------------------------ 
+# $ nvcc --version not working
+  $ sudo nano /home/$USER/.bashrc
+# add this in .bashrc
+   export CUDA_HOME=/usr/local/cuda
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64
+   export PATH=$PATH:$CUDA_HOME/bin
+#then run 
+   $ source .bashrc
+# then check 
+   $ nvcc --version
+------------------------------------------------------------------------------------------------------------------------ 
+# Getting list of file size descending order
+#https://kaiwern.com/posts/2020/03/16/aws-ec2-disk-space-full/
+sudo du -ah . | sort -rh | head -20
+------------------------------------------------------------------------------------------------------------------------ 
 #shutdown linux machine using python
 # it is usefull when model train is complete we want to stop machine
 import subprocess

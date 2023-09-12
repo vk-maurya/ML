@@ -1,6 +1,11 @@
+#shutdown linux machine using python
+# it is usefull when model train is complete we want to stop machine
+import subprocess
+subprocess.run(["sudo", "shutdown", "-h", "now"])
+------------------------------------------------------------------------------------------------------------------------ 
 # transformer installation
 !pip install transformers xformer accelerate einops -q
-
+------------------------------------------------------------------------------------------------------------------------ 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 

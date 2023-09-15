@@ -1,3 +1,5 @@
+## forcely Killing port which activated  by python
+kill -9 $(ps -A | grep python | awk '{print $1}')
 ------------------------------------------------------------------------------------------------------------------------ 
 #install cuda using conda
 conda install -c conda-forge cudatoolkit=11.2.2 cudnn=8.0

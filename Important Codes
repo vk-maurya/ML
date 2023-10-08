@@ -1,3 +1,17 @@
+------------------------------------------------------------------------------------------------------------------------
+##Line Wrapping in Collaboratory Google results
+from IPython.display import HTML, display
+def set_css():
+  display(HTML('''
+  <style>
+    pre {
+        white-space: pre-wrap;
+    }
+  </style>
+  '''))
+get_ipython().events.register('pre_run_cell', set_css)
+------------------------------------------------------------------------------------------------------------------------
+
 ## forcely Killing port which activated  by python
 kill -9 $(ps -A | grep python | awk '{print $1}')
 ------------------------------------------------------------------------------------------------------------------------ 

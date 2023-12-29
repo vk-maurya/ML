@@ -1,4 +1,9 @@
 ------------------------------------------------------------------------------------------------------------------------
+repo_id = "h94/IP-Adapter-FaceID"
+filename  ="ip-adapter-faceid_sd15.bin"
+from huggingface_hub import hf_hub_download
+hf_hub_download(repo_id=repo_id, filename=filename,local_dir=".")
+------------------------------------------------------------------------------------------------------------------------
 ##Line Wrapping in Collaboratory Google results
 from IPython.display import HTML, display
 def set_css():

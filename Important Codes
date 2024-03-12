@@ -1,4 +1,14 @@
+
 ------------------------------------------------------------------------------------------------------------------------
+# conda create env
+conda create -n env_name python=3.11
+# conda remove env
+conda remove --name env_name --all
+# conda clean all cache/tarfiles/whl
+conda clean -a
+https://conda.io/projects/conda/en/latest/commands/clean.html
+------------------------------------------------------------------------------------------------------------------------
+# download specific file using huggingface hub
 repo_id = "h94/IP-Adapter-FaceID"
 filename  ="ip-adapter-faceid_sd15.bin"
 from huggingface_hub import hf_hub_download

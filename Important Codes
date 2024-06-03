@@ -1,4 +1,16 @@
 
+#Linux Nvidia GPU check
+command :
+watch -n 2 nvidia-smi
+
+# NVIDIA GPU Check in windows powershell
+command : 
+
+while ($true) {
+    cls
+    nvidia-smi
+    Start-Sleep -Seconds 2
+}
 ------------------------------------------------------------------------------------------------------------------------
 # conda create env
 conda create -n env_name python=3.11
